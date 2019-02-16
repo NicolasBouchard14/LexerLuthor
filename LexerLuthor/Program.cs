@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ConsoleTables;
 
 /// <summary>
@@ -10,24 +12,30 @@ using ConsoleTables;
 /// </summary>
 namespace LexerLuthor
 {
+    
     class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
-            Console.WriteLine("\\#// Lexer Luthor //#\\");
-            Console.WriteLine("Entrez le chemin du fichier à analyser(Ex.: C:\fichier.cs):");
-            String filePath = Console.ReadLine();
+            Console.WriteLine("\\#//////////////////#\\\n\\#// Lexer Luthor //#\\\n\\#//////////////////#\\");
 
-            Lexer lexer = new Lexer();
-            lexer.AnalyzeFile(filePath);
+            bool continu = true;
+            while(continu)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Title = "Choisir un fichier à analyser";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Lexer lexer = new Lexer();
+                    lexer.AnalyzeFile(openFileDialog.OpenFile());
+                    ConsoleTable.From<Token>(lexer.SymbolTable).Write();
+                }
 
-            ConsoleTable.From<Token>(lexer.SymbolTable).Write();
-                
-            Console.ReadLine();
+                Console.WriteLine("Voulez-vous analyser un nouveau fichier? (y/n): ");
+                if (Console.ReadLine() == "y") continue;
+                else continu = false;
+            }
         }
-
-       
-
-
     }
 }

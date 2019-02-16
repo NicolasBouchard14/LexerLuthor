@@ -18,11 +18,11 @@ namespace LexerLuthor
 
         public List<Token> SymbolTable { get; set; }
 
-        public void AnalyzeFile(String filePath)
+        public void AnalyzeFile(Stream fileStream)
         {
             try
             {
-                using (StreamReader sr = new StreamReader(filePath))
+                using (StreamReader sr = new StreamReader(fileStream))
                 {
                     while (!sr.EndOfStream)
                     {

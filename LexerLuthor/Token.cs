@@ -12,7 +12,7 @@ namespace LexerLuthor
 
         public string Lexem { get; set; }
 
-        public string Attribut {get; set;}
+        public string Attribut { get; set; }
 
 
         public enum TypeEnum
@@ -23,12 +23,6 @@ namespace LexerLuthor
             Operateur,
             Boucle,
             Erreur
-        }
-
-        public override string ToString()
-        {
-            string strToken = $"[Type : {Type.ToString()}], [Lexem : {Lexem}]";
-            return (Attribut == null) ? strToken : strToken + $", [Attribut : {Attribut}]" ;
         }
     }
 }
